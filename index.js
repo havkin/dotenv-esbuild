@@ -56,7 +56,6 @@ class Dotenv {
     const data = formatData({
       variables,
     });
-    console.log('🚀 ~ data', data);
     const options = build.initialOptions;
     options.define = options.define || {};
     for (const [key, value] of Object.entries(data)) {
