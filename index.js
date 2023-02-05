@@ -1,22 +1,23 @@
 // The idea and part of the code are from "https://github.com/mrsteele/dotenv-webpack"
-const dotenv = require("dotenv");
-const fs = require("node:fs");
+const dotenv = require('dotenv');
+const fs = require('node:fs');
+
+const PATH = './.env';
+const PREFIX = 'process.env.';
 
 const loadFile = ({ file }) => {
   try {
-    return fs.readFileSync(file, "utf8");
+    return fs.readFileSync(file, 'utf8');
   } catch (error) {
-    console.log("🚀 ~ error", error);
-    return "";
+    console.log('🚀 ~ error', error);
+    return '';
   }
 };
 
 const getEnvs = () => {
-  const path = "./.env";
-
   return dotenv.parse(
     loadFile({
-      file: path,
+      file: PATH,
     })
   );
 };
@@ -35,10 +36,10 @@ const gatherVariables = () => {
 };
 
 const formatData = ({ variables = {} }) => {
-  const prefix = "process.env.";
+
   const formatted = Object.keys(variables).reduce((obj, key) => {
     const vValue = variables[key];
-    const vKey = `${prefix}${key}`;
+    const vKey = `${PREFIX}${key}`;
     obj[vKey] = JSON.stringify(vValue);
 
     return obj;
@@ -48,14 +49,14 @@ const formatData = ({ variables = {} }) => {
 };
 
 class Dotenv {
-  name = "Dotenv";
+  name = 'Dotenv';
 
   setup(build) {
     const variables = gatherVariables();
     const data = formatData({
       variables,
     });
-    console.log("🚀 ~ data", data);
+    console.log('🚀 ~ data', data);
     const options = build.initialOptions;
     options.define = options.define || {};
     for (const [key, value] of Object.entries(data)) {

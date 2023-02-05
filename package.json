@@ -2,9 +2,16 @@
   "name": "dotenv-esbuild",
   "version": "1.0.0",
   "description": "A simple esbuild plugin to support dotenv.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=16.13"
+  },
+  "exports": {
+    ".": "./index.js"
+  },
+  "types": "./index.d.ts",
+  "scripts": {},
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "dotenv",
@@ -14,7 +21,15 @@
   ],
   "author": "Maxim Sozinov <max.sozinov@gmail.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/havkin/dotenv-esbuild.git"
+  },
+  "homepage": "https://github.com/havkin/dotenv-esbuild#readme",
   "dependencies": {
     "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.5"
   }
 }
