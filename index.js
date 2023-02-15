@@ -2,14 +2,17 @@
 const dotenv = require('dotenv');
 const fs = require('node:fs');
 
-const PATH = './.env';
-const PREFIX = 'process.env.';
+let config = {
+  path: './.env',
+  prefix: 'process.env.',
+};
+
 
 const loadFile = ({ file }) => {
   try {
     return fs.readFileSync(file, 'utf8');
   } catch (error) {
-    console.log('🚀 ~ error', error);
+    console.log(`Failed to load ${file}.`);
     return '';
   }
 };
@@ -17,7 +20,7 @@ const loadFile = ({ file }) => {
 const getEnvs = () => {
   return dotenv.parse(
     loadFile({
-      file: PATH,
+      file: config.path,
     })
   );
 };
@@ -39,7 +42,7 @@ const formatData = ({ variables = {} }) => {
 
   const formatted = Object.keys(variables).reduce((obj, key) => {
     const vValue = variables[key];
-    const vKey = `${PREFIX}${key}`;
+    const vKey = `${config.prefix}${key}`;
     obj[vKey] = JSON.stringify(vValue);
 
     return obj;
@@ -50,6 +53,9 @@ const formatData = ({ variables = {} }) => {
 
 class Dotenv {
   name = 'Dotenv';
+  constructor(options = {}) {
+    config = Object.assign(config, options);
+  }
 
   setup(build) {
     const variables = gatherVariables();
