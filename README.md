@@ -11,7 +11,7 @@ npm install dotenv-esbuild --save-dev
 ## Usage
 
 ```javascript
-import esbuild from "esbuild"
+import esbuild from 'esbuild';
 import Dotenv from 'dotenv-esbuild';
 
 esbuild.build({
